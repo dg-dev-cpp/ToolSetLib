@@ -18,40 +18,40 @@ namespace Strings
 
     enum CxSearchDirection
     {
-	    front,
-	    back
+        front,
+        back
     };
 
     class CxSearchSample
     {
     public:
 
-	    CxSearchDirection		    search_direction;
-	    uint64_t			        max_search_positions;
-	    std::vector<std::string>	sample_strings;
-	    uint32_t			        max_found_samples;
-	    std::vector<std::string>	stop_strings;
-	    bool				        is_to_end_if_not_found;
+        CxSearchDirection            search_direction;
+        uint64_t                    max_search_positions;
+        std::vector<std::string>    sample_strings;
+        uint32_t                    max_found_samples;
+        std::vector<std::string>    stop_strings;
+        bool                        is_to_end_if_not_found;
     };
 
     class CxSearchSamplePos
     {
     public:
 
-	    uint64_t begin_idx;
-	    uint64_t len;
+        uint64_t begin_idx;
+        uint64_t len;
 
-	    uint64_t interim_data_begin_idx;
-	    uint64_t interim_data_len;
+        uint64_t interim_data_begin_idx;
+        uint64_t interim_data_len;
 
-	    CxSearchSamplePos()
-	    {
-		    begin_idx =		0;
-		    len =			0;
+        CxSearchSamplePos()
+        {
+            begin_idx =        0;
+            len =            0;
 
             interim_data_begin_idx =    0;
             interim_data_len =          0;
-	    }
+        }
     };
 
 
@@ -59,20 +59,20 @@ namespace Strings
     {
     public:
 
-	    uint64_t begin_idx;
-	    uint64_t len;
+        uint64_t begin_idx;
+        uint64_t len;
 
-	    uint64_t interim_data_begin_idx;
-	    uint64_t interim_data_len;
+        uint64_t interim_data_begin_idx;
+        uint64_t interim_data_len;
 
-	    CxFoundSamplePos()
-	    {
-		    begin_idx =		0;
-		    len =			0;
+        CxFoundSamplePos()
+        {
+            begin_idx =        0;
+            len =            0;
 
             interim_data_begin_idx =    0;
             interim_data_len =          0;
-	    }
+        }
     };
 
 }

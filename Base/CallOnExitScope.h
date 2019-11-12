@@ -14,7 +14,7 @@ namespace Base
 
 class CallOnExitScope
 {
-	std::function<void(void)> m_function;
+    std::function<void(void)> m_function;
 
 public:
 
@@ -27,19 +27,19 @@ public:
     };
 
 
-	CallOnExitScope(std::function<void(void)> a_function)
-	{
-		m_function = a_function;
-	}
+    CallOnExitScope(std::function<void(void)> a_function)
+    {
+        m_function = a_function;
+    }
 
-	~CallOnExitScope()
-	{
-		if( m_function != nullptr)
-			m_function();
-	}
+    ~CallOnExitScope()
+    {
+        if( m_function != nullptr)
+            m_function();
+    }
 
-	CallOnExitScope(const CallOnExitScope&) = delete;
-	CallOnExitScope& operator=(const CallOnExitScope&) = delete;
+    CallOnExitScope(const CallOnExitScope&) = delete;
+    CallOnExitScope& operator=(const CallOnExitScope&) = delete;
 };
 
 }

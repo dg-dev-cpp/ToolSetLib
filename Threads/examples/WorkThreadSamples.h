@@ -19,16 +19,16 @@ namespace Examples
 
 class SampleThread: public ToolSetLib::Threads::WorkThread
 {
-	virtual bool
-	WorkThreadFunction() override
-	{
-		for(;IsNeedStopThread() == false; std::this_thread::sleep_for(1ms))
-		{
-			// work thread code
-	    }
+    virtual bool
+    WorkThreadFunction() override
+    {
+        for(;IsNeedStopThread() == false; std::this_thread::sleep_for(1ms))
+        {
+            // work thread code
+        }
 
-		return true;
-	}
+        return true;
+    }
 
 };
 

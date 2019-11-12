@@ -10,11 +10,11 @@ namespace Strings
     using namespace std;
 
     bool
-    CompEx::Find(   const   vector<CxSearchSample>&			    search_samples,
+    CompEx::Find(   const   vector<CxSearchSample>&             search_samples,
                     const   char*                               p_data,
-                            uint64_t							data_size,
-                            uint32_t							max_found_samples,
-                            vector<vector<CxFoundSamplePos>>&	found_samples_pos)
+                            uint64_t                            data_size,
+                            uint32_t                            max_found_samples,
+                            vector<vector<CxFoundSamplePos>>&   found_samples_pos)
     {
         found_samples_pos.clear();
         m_last_error.clear();
@@ -53,9 +53,9 @@ namespace Strings
                 return false;
             }
 
-            for(	uint32_t	count	=	0;
-                				count	<	search_samples.size();
-                				count	+=	1)
+            for(    uint32_t    count    =    0;
+                                count    <    search_samples.size();
+                                count    +=    1)
             {
                 auto& next_elem = search_samples[count];
 
@@ -135,13 +135,13 @@ namespace Strings
 
 
     bool
-    CompEx::FindInternal(   const   vector<CxSearchSample>&		        search_samples,
-                                    uint64_t							current_sample_idx,
+    CompEx::FindInternal(   const   vector<CxSearchSample>&             search_samples,
+                                    uint64_t                            current_sample_idx,
                             const   char*                               p_data,
-                                    uint64_t							data_size,
-                                    uint32_t							max_found_samples,
-                                    vector<CxFoundSamplePos>&			current_found_sample,
-                                    vector<vector<CxFoundSamplePos>>&	search_samples_pos)
+                                    uint64_t                            data_size,
+                                    uint32_t                            max_found_samples,
+                                    vector<CxFoundSamplePos>&           current_found_sample,
+                                    vector<vector<CxFoundSamplePos>>&   search_samples_pos)
     {
         try
         {
@@ -232,7 +232,7 @@ namespace Strings
 
             if( is_search_pos_range_out == false )
             for(    uint64_t    count_pos   =   0;;
-            					count_pos   +=  1)
+                                count_pos   +=  1)
             {
                 if( current_sample.max_search_positions > 0)
                     if( count_pos >= current_sample.max_search_positions )
@@ -401,12 +401,12 @@ namespace Strings
                         // Try to find next samples
 
                         if( false == FindInternal(  search_samples,
-						                            current_sample_idx + 1,
+                                                    current_sample_idx + 1,
                                                     p_data,
                                                     data_size,
-						                            max_found_samples,
-						                            next_found_sample,
-					                                search_samples_pos))
+                                                    max_found_samples,
+                                                    next_found_sample,
+                                                    search_samples_pos))
                             return false;
 
                         if(     max_found_samples           >   0
@@ -501,12 +501,12 @@ namespace Strings
                     // Try to find next samples
 
                     if( false == FindInternal(  search_samples,
-						                        current_sample_idx + 1,
+                                                current_sample_idx + 1,
                                                 p_data,
                                                 data_size,
-						                        max_found_samples,
-						                        next_found_sample,
-					                            search_samples_pos))
+                                                max_found_samples,
+                                                next_found_sample,
+                                                search_samples_pos))
                         return false;
                 }
             }
@@ -532,7 +532,7 @@ namespace Strings
     GetInternalString(  const   std::vector<CxFoundSamplePos>&  sample_pos,
                                 uint32_t                        pos_idx,
                         const   char*                           p_data,
-                                uint64_t						data_size,
+                                uint64_t                        data_size,
                                 std::string&                    internal_string)
     {
         internal_string.clear();

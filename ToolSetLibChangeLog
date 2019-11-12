@@ -1,8 +1,10 @@
 {
   "product": "ToolSetLib",
-  "version": "0.1.5.12",
+  "version": "0.1.5.13",
   "changes":
   [
+    {"changed":["minor text formatting"], "total_code_strings": 4316,
+     "date":"12.11.2019", "local_time":"18:09"},
     {"changed":["some ToolSetLib::Environment::CmdParams methods"],"added":["ToolSetLib::Environment::CmdParams methods","ToolSetLib::Environment::CmdParams sample code", "files: ToolSetLib/Environment/examples/CmdParamsSamples.h"], "total_code_strings": 4316,
      "date":"05.11.2019", "local_time":"17:11"},
     {"changed":["some headers guards renamed"],"added":["ToolSetLib::Encoding namespace", "ToolSetLib::Encoding::Base64 class","ToolSetLib::Encoding::HexString class", "ToolSetLib::Encoding::Base64 class", "files: Base64.cpp, Base64.h, Base64Defines.h", "files: HexString.cpp, HexString.h, HexStringDefines.h"], "total_code_strings": 4109,

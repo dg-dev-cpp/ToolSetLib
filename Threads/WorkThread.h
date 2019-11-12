@@ -15,7 +15,7 @@ namespace Threads
 
 class WorkThread
 {
-	// Base class to create work thread
+    // Base class to create work thread
 
 private:
 
@@ -35,7 +35,7 @@ public:
     public:
         static const uint32_t api =         1;
         static const uint32_t features =    2;
-        static const uint32_t revision =    2;
+        static const uint32_t revision =    3;
     };
 
 

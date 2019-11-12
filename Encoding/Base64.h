@@ -21,7 +21,7 @@ public:
     public:
         static const uint32_t api =         0;
         static const uint32_t features =    1;
-        static const uint32_t revision =    4;
+        static const uint32_t revision =    5;
     };
 
     std::string m_last_error;
@@ -35,8 +35,8 @@ public:
                     std::string&    encoded_string);
 
     bool
-    Decode(const	std::string&	    encoded_string,
-                    std::vector<char>&	result_data);
+    Decode(const    std::string&        encoded_string,
+                    std::vector<char>&    result_data);
 
     uint64_t
     EstimateDecodedBase64DataSize(const std::string& data);

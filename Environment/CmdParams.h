@@ -20,10 +20,10 @@ public:
     public:
         static const uint32_t api =         2;
         static const uint32_t features =    4;
-        static const uint32_t revision =    6;
+        static const uint32_t revision =    8;
     };
 
-	std::vector<CmdKey> cmd_keys_found;
+    std::vector<CmdKey> cmd_keys_found;
 
     bool
     GetCmdParams(   uint32_t                        total_params,

@@ -33,7 +33,7 @@ private:
     std::atomic_uint32_t    m_set_data_counter;
 
     // Threads primary data
-	PoolThreadData<DataElementType> m_threads_data[max_pool_threads];
+    PoolThreadData<DataElementType> m_threads_data[max_pool_threads];
 
     // Threads queue data,
     // a little trick: create array, if max_data_queue_size is 0
@@ -54,9 +54,9 @@ public:
     };
 
 
-	bool
-	Start()
-	{
+    bool
+    Start()
+    {
         try
         {
             std::lock_guard<std::mutex> scope_lock(m_start_stop_mutex);
@@ -83,9 +83,9 @@ public:
             m_active_threads =          0;
 
             // Start work threads
-            for(	uint32_t	count	=	0;
-                    			count	<	initial_start_threads;
-                    			count	+=	1)
+            for(    uint32_t    count    =    0;
+                                count    <    initial_start_threads;
+                                count    +=    1)
             {
                 auto& next_thread = m_threads_data[count];
 
@@ -101,12 +101,12 @@ public:
         {}
 
         return false;
-	}
+    }
 
 
-	bool
-	Stop(bool is_process_remaining_data = true)
-	{
+    bool
+    Stop(bool is_process_remaining_data = true)
+    {
         try
         {
             std::lock_guard<std::mutex> scope_lock(m_start_stop_mutex);
@@ -160,9 +160,9 @@ public:
 
                     uint32_t total_elements = 0;
                 
-                    for(uint32_t    count2	=	0;
-           				            count2	<	(max_data_queue_size - 1);
-           				            count2	+=	1)
+                    for(uint32_t    count2  =   0;
+                                    count2  <   (max_data_queue_size - 1);
+                                    count2  +=  1)
                     {
                         // Find queue array elements data 
 
@@ -187,9 +187,9 @@ public:
                                     return false;
                                 });
 
-                        for(uint32_t    count3	=	0;
-           				                count3	<	total_elements;
-           				                count3	+=	1)
+                        for(uint32_t    count3    =    0;
+                                           count3    <    total_elements;
+                                           count3    +=    1)
                         {
                             // Process queue thread data in id ascending order
 
@@ -219,12 +219,12 @@ public:
         {}
 
         return false;
-	}
+    }
 
 
     bool
     SetStopRequest()
-	{
+    {
         try
         {
             std::lock_guard<std::mutex> scope_lock(m_start_stop_mutex);
@@ -237,14 +237,14 @@ public:
         {}
 
         return false;
-	}
+    }
 
 
-	bool
-	CopyWorkData(   const   DataElementType&    thread_data,
+    bool
+    CopyWorkData(   const   DataElementType&    thread_data,
                             bool                is_skip_if_queue_full = true,
                             uint32_t            max_wait_time_sec =     0) //value == 0: endless waiting
-	{
+    {
         if( m_is_need_stop != 0 || m_is_pool_started == 0)
             return false;
 
@@ -260,22 +260,22 @@ public:
         }
 
         return MoveWorkData(copy_thread_data, is_skip_if_queue_full, max_wait_time_sec);
-	}
+    }
 
 
     bool
-	MoveWorkData(   DataElementType&    thread_data,
+    MoveWorkData(   DataElementType&    thread_data,
                     bool                is_skip_if_queue_full = true,
                     uint32_t            max_wait_time_sec =     0) //value == 0: endless waiting
-	{
+    {
         if( m_is_need_stop != 0 || m_is_pool_started == 0)
             return false;
 
         time_t      start_time =         0;
         uint32_t    check_time_count =   UINT32_MAX;
 
-        for(	uint64_t	count	=	0;;
-            				count	+=	1, check_time_count += 1)
+        for(    uint64_t    count    =    0;;
+                            count    +=    1, check_time_count += 1)
         {
             bool is_queue_full = false;
 
@@ -326,7 +326,7 @@ public:
         }
 
         return false;
-	}
+    }
 
 
     bool 
@@ -375,11 +375,11 @@ public:
 private:
 
     virtual void
-	ProcessDataCallback(DataElementType& thead_data) = 0;
+    ProcessDataCallback(DataElementType& thead_data) = 0;
 
-	bool
-	InternalPoolThreadFunction( uint32_t pool_thread_idx)
-	{
+    bool
+    InternalPoolThreadFunction( uint32_t pool_thread_idx)
+    {
         if( pool_thread_idx >= std::size(m_threads_data))
             return false;
 
@@ -390,7 +390,7 @@ private:
 
         ToolSetLib::Base::CallOnExitScope decrease_threads_count([&]()->void{ m_active_threads -= 1; });
 
-		auto& thread_data = m_threads_data[pool_thread_idx];
+        auto& thread_data = m_threads_data[pool_thread_idx];
 
         thread_data.m_last_processing_time = time(0);
 
@@ -399,8 +399,8 @@ private:
             if( m_is_need_stop != 0 )
                 break;
 
-	        try
-	        {
+            try
+            {
                 if( 0 == thread_data.m_thread_base_data.first.is_data_set)
                 {
                     std::unique_lock<std::mutex> locked(thread_data.m_event_mutex);
@@ -411,9 +411,9 @@ private:
                         thread_data.m_event.wait_for( locked, 250ms);
                     }
                 }
-	        }
-	        catch (...)
-	        {}
+            }
+            catch (...)
+            {}
 
             if( m_is_need_stop != 0)
                 break;
@@ -483,9 +483,9 @@ private:
 
                 uint32_t total_elements = 0;
                 
-                for(uint32_t    count2	=	0;
-           				        count2	<	(max_data_queue_size - 1);
-           				        count2	+=	1)
+                for(uint32_t    count2    =    0;
+                                   count2    <    (max_data_queue_size - 1);
+                                   count2    +=    1)
                 {
                     // Find queue array elements data
 
@@ -512,9 +512,9 @@ private:
                                 return false;
                             });
 
-                    for(uint32_t    count3	=	0;
-           				            count3	<	total_elements;
-           				            count3	+=	1)
+                    for(uint32_t    count3  =   0;
+                                    count3  <   total_elements;
+                                    count3  +=  1)
                     {
                         // Process queue thread data in id value ascending order
 
@@ -554,8 +554,8 @@ private:
 
         thread_data.m_is_started =             0;
 
-		return true;
-	}
+        return true;
+    }
 
 
     bool
@@ -569,9 +569,9 @@ private:
         if( m_is_pool_started == 0 || m_is_need_stop != 0)
             return false;
 
-        for(uint32_t    count	=	0;
-           				count	<	std::size(m_threads_data);
-           				count	+=	1)
+        for(uint32_t    count    =    0;
+                           count    <    std::size(m_threads_data);
+                           count    +=    1)
         {
             // Find free threads data array element
 
@@ -670,9 +670,9 @@ private:
             ReassignDataQueueIds();
         }
 
-        for(uint32_t    count2	=	0;
-           				count2	<	(max_data_queue_size - 1);
-           				count2	+=	1)
+        for(uint32_t    count2  =   0;
+                        count2  <   (max_data_queue_size - 1);
+                        count2  +=  1)
         {
             // Try to find free queue array element and set data
 
@@ -719,7 +719,7 @@ private:
 
         is_queue_full = true;
 
-		return false;
+        return false;
     }
 
 
@@ -738,16 +738,16 @@ private:
             if( m_queue_elements_id_counter <= POOL_QUEUE_ELEMENT_MAX_ID)
                 return false;
 
-            for(uint32_t    count	=	0;
-           				    count	<	(max_data_queue_size - 1);
-           				    count	+=	1)
+            for(uint32_t    count   =   0;
+                            count   <   (max_data_queue_size - 1);
+                            count   +=  1)
             {
                 // Lock all data queue elements
 
                 auto& next_elem = m_threads_queue_data[count];
 
-                for(	uint32_t	count2	=	0;;
-                					count2	+=	1)
+                for(    uint32_t    count2  =   0;;
+                                    count2  +=  1)
                 {
                     if( next_elem.first.is_data_locked.fetch_add(1) == 0)
                         break;
@@ -760,9 +760,9 @@ private:
                     if(     m_is_need_stop      !=  0
                         ||  m_is_pool_started   ==  0)
                     {
-                        for(uint32_t    count_unlock	=	0;
-                                        count_unlock	<	count;
-                                        count_unlock	+=	1)
+                        for(uint32_t    count_unlock    =   0;
+                                        count_unlock    <   count;
+                                        count_unlock    +=  1)
                         {
                             auto& unlock_elem = m_threads_queue_data[count_unlock];
 
@@ -779,9 +779,9 @@ private:
 
             uint32_t total_elements = 0;
 
-            for(uint32_t    count3	=	0;
-           				    count3	<	(max_data_queue_size - 1);
-           				    count3	+=	1)
+            for(uint32_t    count3  =   0;
+                            count3  <   (max_data_queue_size - 1);
+                            count3  +=  1)
             {
                 // Copy elements info to additional array
 
@@ -810,9 +810,9 @@ private:
                             });
 
 
-                    for(uint32_t    count_ids	=	0;
-                				    count_ids	<	total_elements;
-                				    count_ids	+=	1)
+                    for(uint32_t    count_ids    =    0;
+                                    count_ids    <    total_elements;
+                                    count_ids    +=    1)
                     {
                         // Reassign elements ids in m_threads_queue_data array
 
@@ -830,9 +830,9 @@ private:
             if(m_queue_elements_id_counter == 0)
                 m_queue_elements_id_counter = 1;
 
-            for(uint32_t    count4	=	0;
-           				    count4	<	(max_data_queue_size - 1);
-           				    count4	+=	1)
+            for(uint32_t    count4  =   0;
+                            count4  <   (max_data_queue_size - 1);
+                            count4  +=  1)
             {
                 // Unlock all data queue elements
 
@@ -851,36 +851,36 @@ private:
 
 public:
 
-	WorkThreadsPool()
-	{
-		static_assert( max_pool_threads > 0 && max_pool_threads <= 256,"max_pool_threads incorrect value");
+    WorkThreadsPool()
+    {
+        static_assert( max_pool_threads > 0 && max_pool_threads <= 256,"max_pool_threads incorrect value");
         static_assert( max_data_queue_size <= (8*1024),"max_data_queue_size incorrect value");
         static_assert( (max_data_queue_size * sizeof(DataElementType)) < (128*1024*1024),  "threads pool queue data size is too large");
         static_assert( max_pool_threads >=  initial_start_threads, "max_pool_threads < initial_start_threads");
 
-        m_is_pool_started =     0;
-        m_is_need_stop =        0;
-        m_set_data_counter =    0;
-        m_queue_elements_id_counter =    1;
+        m_is_pool_started =             0;
+        m_is_need_stop =                0;
+        m_set_data_counter =            0;
+        m_queue_elements_id_counter =   1;
 
-		for(auto& next_state: m_threads_data)
-		{
-			next_state.Clear();
-		}
+        for(auto& next_state: m_threads_data)
+        {
+            next_state.Clear();
+        }
 
         for(auto& next_queue_elem: m_threads_queue_data)
         {
             next_queue_elem.first.is_data_locked =  0;
             next_queue_elem.first.element_id =      0;
         }
-	}
+    }
 
 
     virtual
-	~WorkThreadsPool()
-	{
-		Stop();
-	}
+    ~WorkThreadsPool()
+    {
+        Stop();
+    }
 
     WorkThreadsPool(const WorkThreadsPool &) =              delete;
     WorkThreadsPool(WorkThreadsPool &&) =                   delete;

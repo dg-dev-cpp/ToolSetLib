@@ -33,13 +33,13 @@ template<typename   DataElementType>
 class PoolThreadData
 {
 public:
-	std::atomic_int         m_is_started;        // value == 0: thread is not started
-    std::thread				m_thread;
+    std::atomic_int         m_is_started;        // value == 0: thread is not started
+    std::thread                m_thread;
 
-	std::atomic_uint32_t    m_set_data_count;  
+    std::atomic_uint32_t    m_set_data_count;  
 
-    std::condition_variable	m_event;            // locked by m_event_mutex
-	std::mutex				m_event_mutex;
+    std::condition_variable    m_event;            // locked by m_event_mutex
+    std::mutex                m_event_mutex;
 
     time_t                  m_last_processing_time;  
 
@@ -53,10 +53,10 @@ public:
     void
     Clear()
     {
-        m_is_started =	            0;
-        m_set_data_count =          0;
-        m_last_processing_time =    0;
-        m_thread_base_data.first.is_data_set = 0;
+        m_is_started =                          0;
+        m_set_data_count =                      0;
+        m_last_processing_time =                0;
+        m_thread_base_data.first.is_data_set =  0;
     }
 };
 }

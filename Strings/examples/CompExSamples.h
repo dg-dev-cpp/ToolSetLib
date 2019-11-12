@@ -32,7 +32,7 @@ CompExSampleBase()
 
     CompEx compex;
 
-    std::vector<std::vector<CxFoundSamplePos>>	found_samples_pos;
+    std::vector<std::vector<CxFoundSamplePos>>    found_samples_pos;
 
     if( false == compex.Find(   test_cx,
                                 test_text.data(),
