@@ -14,7 +14,7 @@ class VersionInfo
 public:
     static const uint32_t api =         0;
     static const uint32_t features =    1;
-    static const uint32_t revision =    1;
+    static const uint32_t revision =    3;
 };
 
 }

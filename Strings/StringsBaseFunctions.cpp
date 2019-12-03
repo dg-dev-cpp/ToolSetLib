@@ -168,102 +168,29 @@ ReduceStringLen( string& reduce_str, uint32_t max_string_size)
 
 
 vector<string>
-Split( const string& source_string, const std::string& delimiter)
+Split( const string& a_source_string, const std::string& a_delimiter)
 {
     vector<string> split_result;
 
-    if( source_string.size() == 0)
-        return split_result;
-
-    if( source_string.size() <= delimiter.size())
-    {
-        return split_result;
-    }
-
-    if( delimiter.size() == 0)
-    {
-        return split_result;
-    }
-
-    if(     source_string.size()    >=    INT32_MAX
-        ||  delimiter.size()        >=    INT32_MAX)
-        return split_result;
-
     try
     {
-        int source_size =        (int)source_string.size();
-        int delimiter_size =    (int)delimiter.size();
-
-        const char* p_source_str =      source_string.c_str();
-        const char* p_delimiter_str =   delimiter.c_str();
-
-        vector<int> delimeter_idxs;
-
-        for(int count   =   0;
-                count   <   source_size;
-                count   +=  1)
-        {
-            bool is_equal = true;
-
-            for(uint32_t    count_delim =   0;
-                            count_delim <   delimiter_size;
-                            count_delim +=  1)
+        function<bool (const char*, uint64_t)> process_records = 
+                [&] (const char* p_part, uint64_t part_size) -> bool 
             {
-                if(p_source_str[count + count_delim] != p_delimiter_str[count_delim])
-                {
-                    is_equal = false;
-                    break;
-                }
-            }
+                string next_string( p_part, part_size);
 
-            if( is_equal == false)
-                continue;
+                split_result.push_back( move(next_string));
 
-            delimeter_idxs.push_back(count);
+                return true;
+            };
 
-            count += (delimiter_size - 1);
-        }
-
-        if( delimeter_idxs.size() == 0)
+        if( false == ToolSetLib::Strings::SplitForEach( a_source_string.data(), 
+                                                        a_source_string.size(), 
+                                                        a_delimiter, 
+                                                        process_records))
         {
-            return split_result;
-        }
-
-        string split_string;
-
-        split_string.assign(&p_source_str[0],delimeter_idxs[0]);
-
-        split_result.push_back(split_string);
-
-        for(int count   =   0;
-                count   <   delimeter_idxs.size();
-                count   +=  1)
-        {
-            auto current_delim_idx = delimeter_idxs[count];
-
-            if((count + 1) >= delimeter_idxs.size())
-            {
-                if((current_delim_idx + delimiter_size) <= source_size)
-                {
-                    split_string.clear();
-
-                    if( (source_size - delimiter_size - current_delim_idx) > 0)
-                        split_string.assign(&p_source_str[current_delim_idx + delimiter_size],source_size - delimiter_size - current_delim_idx);
-
-                    split_result.push_back(split_string);
-                }
-
-                break;
-            }
-
-            auto next_delim_idx = delimeter_idxs[count + 1];
-
-            split_string.clear();
-
-            if( ((next_delim_idx)- (current_delim_idx + delimiter_size)) > 0)
-                split_string.assign(&p_source_str[current_delim_idx + delimiter_size],(next_delim_idx)- (current_delim_idx + delimiter_size));
-
-            split_result.push_back(split_string);
+            split_result.clear();
+            return move(split_result);
         }
 
         return move(split_result);
@@ -273,6 +200,89 @@ Split( const string& source_string, const std::string& delimiter)
 
     split_result.clear();
     return move(split_result);
+}
+
+
+bool
+SplitForEach(   const   char*           ap_data,
+                        uint64_t        a_data_size,
+                const   std::string&    a_delimiter,
+                        std::function<bool (const char* p_part_begin, uint64_t part_len)> a_callback_function)
+{
+    if(     ap_data             == nullptr
+        ||  a_data_size         == 0
+        ||  a_callback_function == nullptr)
+        return false;
+
+    if( a_data_size > ((uint64_t)32*1024*1024*1024))
+        return false;
+
+    if( a_data_size <= a_delimiter.size())
+    {
+        return false;
+    }
+
+    if( a_delimiter.size() == 0)
+    {
+        return false;
+    }
+
+    if( a_delimiter.size() >= (16*1024))
+    {
+        return false;
+    }
+
+    try
+    {
+        auto    delimiter_size =    a_delimiter.size();
+        auto*   p_delimiter_str =   a_delimiter.data();
+
+        uint64_t last_end_delimiter_idx = 0;
+
+        for( uint64_t   count   =   0;
+                        count   <   a_data_size;
+                        count   +=  1)
+        {
+            bool is_equal = true;
+
+            for(uint32_t    count_delim =   0;
+                            count_delim <   delimiter_size;
+                            count_delim +=  1)
+            {
+                if( ap_data[count + count_delim] != p_delimiter_str[count_delim])
+                {
+                    is_equal = false;
+                    break;
+                }
+            }
+
+            if( is_equal == false)
+                continue;
+
+            if( count >= last_end_delimiter_idx)
+            {
+                if( false == a_callback_function(&ap_data[last_end_delimiter_idx], (count - last_end_delimiter_idx)))
+                    return false;
+            }
+
+            last_end_delimiter_idx = count + delimiter_size;
+
+            count += (delimiter_size - 1);
+        }
+
+        if(     last_end_delimiter_idx  !=  0
+            &&  last_end_delimiter_idx  <=  a_data_size)
+        {
+            if(false == a_callback_function(&ap_data[last_end_delimiter_idx],(a_data_size - last_end_delimiter_idx)))
+                return false;
+        }
+
+        return true;
+    }
+    catch(...)
+    {}
+
+    return false;
 }
 
 

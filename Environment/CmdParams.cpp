@@ -343,9 +343,9 @@ GetCmdParamsDescription(const vector<CmdFindKeyParam>& a_cmd_params_spec)
             uint32_t values_count = 1;
             for(auto& next_type: next_param.values_types)
             {
-                next_line.append(" value-");
+                next_line.append(" {param");
                 next_line.append(to_string(values_count));
-                next_line.append("");
+                next_line.append("}");
 
                 values_count++;
             }

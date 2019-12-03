@@ -1,8 +1,14 @@
 {
   "product": "ToolSetLib",
-  "version": "0.1.5.13",
+  "version": "0.1.6.17",
   "changes":
   [
+    {"changed":["improve ToolSetLib::Strings::Split()"], "total_code_strings": 4360,
+     "date":"21.11.2019", "local_time_begin":"12:50", "local_time_end":"13:16"},
+    {"added":["function ToolSetLib::Strings::SplitForEach()"], "total_code_strings": 4433,
+     "date":"20.11.2019", "local_time_begin":"18:44", "local_time_end":"20:27"},
+    {"changed":["improve ToolSetLib::Files::ReadFile()"], "total_code_strings": 4315,
+     "date":"20.11.2019", "local_time_begin":"14:55", "local_time_end":"16:33"},
     {"changed":["minor text formatting"], "total_code_strings": 4316,
      "date":"12.11.2019", "local_time":"18:09"},
     {"changed":["some ToolSetLib::Environment::CmdParams methods"],"added":["ToolSetLib::Environment::CmdParams methods","ToolSetLib::Environment::CmdParams sample code", "files: ToolSetLib/Environment/examples/CmdParamsSamples.h"], "total_code_strings": 4316,

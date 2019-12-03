@@ -11,10 +11,15 @@ namespace Files
 {
 
 bool
-ReadFile( const std::string& file_path, std::vector<char>& file_data);
+ReadFile( const std::string&        a_file_path, 
+                std::vector<char>&  a_file_data,
+                uint64_t            a_max_file_size = UINT64_MAX);
 
 bool
-WriteFile( const std::string& file_path, const std::string& file_data);
+WriteFile( const std::string& a_file_path, const std::string& a_file_data);
+
+std::string
+GetLastError();
 
 }
 

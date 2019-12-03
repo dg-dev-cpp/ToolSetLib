@@ -5,6 +5,7 @@
 
 #include <string>
 #include <vector>
+#include <functional>
 
 
 namespace ToolSetLib
@@ -23,7 +24,13 @@ bool
 ReduceStringLen( std::string& reduce_str, uint32_t max_string_size);
 
 std::vector<std::string>
-Split( const std::string& source_string, const std::string& delimiter);
+Split( const std::string& a_source_string, const std::string& a_delimiter);
+
+bool
+SplitForEach(const  char*           ap_data,
+                    uint64_t        a_data_size,
+            const   std::string&    a_delimiter,
+                    std::function<bool (const char* p_part_begin, uint64_t part_len)> a_callback_function);
 
 bool
 Trim( std::string& trim_str);
