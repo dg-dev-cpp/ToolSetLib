@@ -1,8 +1,10 @@
 {
   "product": "ToolSetLib",
-  "version": "0.1.7.18",
+  "version": "0.1.7.19",
   "changes":
   [
+    {"added":["file readme.md"], "total_code_strings": 7564,
+     "date":"14.01.2020", "local_time_begin":"17:40", "local_time_end":"17:58"},  
     {"added":["ToolSetLib::Base::IntegerValue class", "IntegerValue class test code", "files: IntegerValue.h, IntegerValue.cpp, TestsIntegerValue.cpp, TestsIntegerValue.h"], "total_code_strings": 7564,
      "date":"14.01.2020", "local_time_begin":"15:00", "local_time_end":"17:22"},
     {"changed":["minor fix for StringsBaseFunctions.cpp, CompEx.cpp"], "total_code_strings": 4364,
