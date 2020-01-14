@@ -1,7 +1,7 @@
 # ToolSetLib
-A small C++ library of useful helper code
+A small C++ library of useful helper code  
 
-Includes components:
+Includes components:  
 
 CmdParams : class for parsing command line parameters  
 CompEx : class for searching compound string expressions  
