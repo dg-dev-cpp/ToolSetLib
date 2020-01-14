@@ -12,4 +12,6 @@ WorkThreadsPool : class for creating a thread pool
   
 Functions for Base64 and HexString encoding and decoding  
 Functions for a basic files operations  
-Functions for a basic strings operations: split, trim, and some more  
+Functions for a basic strings operations: split, trim  
+  
+And some more  
