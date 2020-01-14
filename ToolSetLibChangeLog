@@ -1,8 +1,12 @@
 {
   "product": "ToolSetLib",
-  "version": "0.1.6.17",
+  "version": "0.1.7.18",
   "changes":
   [
+    {"added":["ToolSetLib::Base::IntegerValue class", "IntegerValue class test code", "files: IntegerValue.h, IntegerValue.cpp, TestsIntegerValue.cpp, TestsIntegerValue.h"], "total_code_strings": 7564,
+     "date":"14.01.2020", "local_time_begin":"15:00", "local_time_end":"17:22"},
+    {"changed":["minor fix for StringsBaseFunctions.cpp, CompEx.cpp"], "total_code_strings": 4364,
+     "date":"27.11.2019", "local_time_begin":"19:01", "local_time_end":"19:22"},
     {"changed":["improve ToolSetLib::Strings::Split()"], "total_code_strings": 4360,
      "date":"21.11.2019", "local_time_begin":"12:50", "local_time_end":"13:16"},
     {"added":["function ToolSetLib::Strings::SplitForEach()"], "total_code_strings": 4433,
@@ -15,7 +19,7 @@
      "date":"05.11.2019", "local_time":"17:11"},
     {"changed":["some headers guards renamed"],"added":["ToolSetLib::Encoding namespace", "ToolSetLib::Encoding::Base64 class","ToolSetLib::Encoding::HexString class", "ToolSetLib::Encoding::Base64 class", "files: Base64.cpp, Base64.h, Base64Defines.h", "files: HexString.cpp, HexString.h, HexStringDefines.h"], "total_code_strings": 4109,
      "date":"02.09.2019", "local_time":"21:23"},
-    {"changed":["fixes for CompEx class"],"added":["ToolSetLib::Strings::CompEx class", "CompEx class example" "files: CompEx.h, CompEx.cpp, CompExDefines.h, CompExSamples.h"], "total_code_strings": 3238,
+    {"changed":["fixes for CompEx class"],"added":["ToolSetLib::Strings::CompEx class", "CompEx class example", "files: CompEx.h, CompEx.cpp, CompExDefines.h, CompExSamples.h"], "total_code_strings": 3238,
      "date":"22.08.2019", "local_time":"19:27"},
     {"changed":["minor fix for CmdParams class", "minor fix in ToolSetLib.h"],"total_code_strings": 2392,
      "date":"19.08.2019", "local_time":"14:39"},

@@ -1,5 +1,7 @@
 #include "CompEx.h"
 
+#include <cstring>
+
 
 namespace ToolSetLib
 {
