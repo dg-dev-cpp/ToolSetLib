@@ -21,16 +21,14 @@ namespace Base
 template< typename value_type, bool is_throw_exception>
 class IntegerValue
 {
-    friend class IntegerValue;
-
 public:
 
     class VersionInfo
     {
     public:
         static const uint32_t api =         0;
-        static const uint32_t features =    1;
-        static const uint32_t revision =    1;
+        static const uint32_t features =    2;
+        static const uint32_t revision =    2;
     };
 
 private:
@@ -932,7 +930,7 @@ public:
             throw std::runtime_error("IntegerValue& Add(const IntegerValue<param_type, a_is_throw>& ): overflow argument");
         }
 
-        BaseAdd<param_type>(a_value.m_integer_value);
+        BaseAdd<param_type>(a_value.GetValue((param_type)0));
 
         return (*this);
     }
@@ -1034,7 +1032,7 @@ public:
             throw std::runtime_error("IntegerValue& Sub(const IntegerValue<param_type, a_is_throw>& ) : overflow argument");
         }
 
-        BaseSub<param_type>(a_value.m_integer_value);
+        BaseSub<param_type>(a_value.GetValue(0));
 
         return (*this);
     }
@@ -1103,7 +1101,7 @@ public:
             throw std::runtime_error("IntegerValue& Mul(const IntegerValue<param_type, a_is_throw>& ) : overflow argument");
         }
 
-        BaseMul<param_type>(a_value.m_integer_value);
+        BaseMul<param_type>(a_value.GetValue(0));
 
         return (*this);
     }
@@ -1194,7 +1192,7 @@ public:
             throw std::runtime_error("IntegerValue& Div(const IntegerValue<param_type, a_is_throw>& ): overflow argument");
         }
 
-        BaseDiv<param_type>(a_value.m_integer_value);
+        BaseDiv<param_type>(a_value.GetValue(0));
 
         return (*this);
     }
@@ -1264,32 +1262,6 @@ public:
     }
 
     //<-- end divide operators
-
-    value_type GetValue()
-    {
-        static_assert( is_throw_exception == true, "IntegerValue::GetValue(): need to use GetValue(value_type default_value) method for no throw code");
-
-        if( m_is_overflow == true)
-        {
-            if( is_throw_exception == true)
-                throw std::runtime_error("IntegerValue::GetValue(): overflow source value");
-
-            return 0;
-        }
-
-        return m_integer_value;
-    }
-
-
-    value_type GetValue( value_type a_default_value)
-    {
-        if( m_is_overflow == true)
-        {
-            return a_default_value;
-        }
-
-        return m_integer_value;
-    }
 
 
     //>-- begin conversion methods
@@ -1807,6 +1779,34 @@ public:
 
     //<-- end conversion methods
 
+    
+    value_type GetValue() const
+    {
+        static_assert( is_throw_exception == true, "IntegerValue::GetValue(): need to use GetValue(value_type default_value) method for no throw code");
+
+        if( m_is_overflow == true)
+        {
+            if( is_throw_exception == true)
+                throw std::runtime_error("IntegerValue::GetValue(): overflow source value");
+
+            return 0;
+        }
+
+        return m_integer_value;
+    }
+
+    
+    value_type GetValue( value_type a_default_value) const
+    {
+        if( m_is_overflow == true)
+        {
+            return a_default_value;
+        }
+ 
+        return m_integer_value;
+    }
+
+
     //<-- begin compare methods
 
     template <typename ls_value_type>
@@ -1901,7 +1901,7 @@ public:
             return false;
         }
 
-        return IsLessThan<param_type>( a_value.m_integer_value, a_value.IsOverflow());
+        return IsLessThan<param_type>( a_value.GetValue(0), a_value.IsOverflow());
     }
 
 
@@ -2005,7 +2005,7 @@ public:
             return false;
         }
 
-        return IsMoreThan<param_type>( a_value.m_integer_value, a_value.IsOverflow());
+        return IsMoreThan<param_type>( a_value.GetValue(0), a_value.IsOverflow());
     }
 
 
@@ -2081,7 +2081,7 @@ public:
             return false;
         }
 
-        return IsEqual<param_type>( a_value.m_integer_value, a_value.IsOverflow());
+        return IsEqual<param_type>( a_value.GetValue(0), a_value.IsOverflow());
     }
 
 
@@ -2135,10 +2135,10 @@ public:
             return false;
         }
 
-        if( true == IsEqual<param_type>( a_value.m_integer_value, a_value.IsOverflow()))
+        if( true == IsEqual<param_type>( a_value.GetValue(0), a_value.IsOverflow()))
             return true;
         
-        return IsMoreThan<param_type>( a_value.m_integer_value, a_value.IsOverflow());
+        return IsMoreThan<param_type>( a_value.GetValue(0), a_value.IsOverflow());
     }
 
 
@@ -2165,10 +2165,10 @@ public:
             return false;
         }
 
-        if( true == IsEqual<param_type>( a_value.m_integer_value, a_value.IsOverflow()))
+        if( true == IsEqual<param_type>( a_value.GetValue(0), a_value.IsOverflow()))
             return true;
         
-        return IsLessThan<param_type>( a_value.m_integer_value, a_value.IsOverflow());
+        return IsLessThan<param_type>( a_value.GetValue(0), a_value.IsOverflow());
     }
 
 
