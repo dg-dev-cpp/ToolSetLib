@@ -158,8 +158,8 @@ GetCmdParams(   uint32_t                    total_params,
             {
                 if( false == IsKeyPresent(next_find_key.key))
                 {
-                    if(p_error_str != 0)
-                        *p_error_str =    "key '" + next_find_key.key + "'" +    " not setted";
+                    if( p_error_str != 0)
+                        *p_error_str =    "not set key '" + next_find_key.key + "'";
 
                     cmd_keys_found.clear();
                     return false;

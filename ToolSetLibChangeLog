@@ -3,6 +3,8 @@
   "version": "0.1.8.20",
   "changes":
   [
+    {"changed":["minor readme.md modification"], "total_code_strings": 7564,
+     "date":"28.04.2020", "local_time_begin":"20:00", "local_time_end":"20:10"},  
     {"changed":["minor fix IntegerValue.h"], "total_code_strings": 7564,
      "date":"15.01.2020", "local_time_begin":"14:00", "local_time_end":"15:32"},  
     {"added":["file readme.md"], "total_code_strings": 7564,
